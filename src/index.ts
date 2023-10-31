@@ -1,9 +1,12 @@
 import { fetchArticles } from '$utils/api';
-import { greetUser } from '$utils/greet';
 
 window.Webflow ||= [];
 window.Webflow.push(() => {
-  const name = 'John Doe';
-  greetUser(name);
-  fetchArticles();
+  const articlesData = fetchArticles();
+
+  const itemTemplate = document.querySelector<HTMLAnchorElement>('[item-element="item-article"]');
+  if (!itemTemplate) return;
+
+  const itemList = itemTemplate.parentElement;
+  itemTemplate.remove();
 });
