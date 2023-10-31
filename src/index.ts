@@ -25,11 +25,12 @@ window.Webflow.push(async () => {
  */
 const createArticleItem = (articleItem: ArticleItem, articleTemplate: HTMLAnchorElement) => {
   const item = cloneNode(articleTemplate);
+  item.href = articleItem.url;
 
-  const titleEleent = item.querySelector<HTMLDivElement>('[item-element="item-title"]');
+  const title = item.querySelector<HTMLDivElement>('[item-element="item-title"]');
 
-  if (titleEleent) {
-    titleEleent.textContent = articleItem.title;
+  if (title) {
+    title.textContent = articleItem.title;
   }
 
   item.removeAttribute('item-clock');
