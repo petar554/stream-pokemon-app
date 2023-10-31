@@ -29,8 +29,10 @@ const createArticleItem = (articleItem: ArticleItem, articleTemplate: HTMLAnchor
   const titleEleent = item.querySelector<HTMLDivElement>('[item-element="item-title"]');
 
   if (titleEleent) {
-    titleEleent.textContent = 'dummy text';
+    titleEleent.textContent = articleItem.title;
   }
+
+  item.removeAttribute('item-clock');
 
   return item;
 };
