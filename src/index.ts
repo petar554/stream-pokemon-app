@@ -1,4 +1,5 @@
 import { cloneNode } from '@finsweet/ts-utils';
+import { Chart } from 'chart.js/auto';
 
 import { fetchArticles } from '$utils/api';
 import type { ArticleItem } from '$utils/types';
@@ -16,6 +17,30 @@ window.Webflow.push(async () => {
   const articles = articlesData.map((articleData) => createArticleItem(articleData, itemTemplate));
 
   itemsList.append(...articles);
+
+  const ctx = document.querySelector<HTMLCanvasElement>('[data-element="chart"]');
+  if (!ctx) return;
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [
+        {
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
 });
 
 /**
