@@ -1,13 +1,10 @@
-// v1
-export async function fetchArticles(): Promise<Array<HackerNewsArticle>> {
-  //const WEBHOSE_API_URL = 'https://www.reddit.com/r/webdev/new.json';
-  //const WEBHOSE_API_URL = 'https://example.com/api/latestWebDevArticles';
+import type { ArticleItem } from '$utils/types';
+
+export async function fetchArticles(): Promise<Array<ArticleItem>> {
   const URL = 'https://hacker-news.firebaseio.com/v0/topstories.json';
 
-  // Make a GET request to the Webhose.io API endpoint.
   const response = await fetch(URL);
 
-  // Check if the response was successful.
   if (response.status !== 200) {
     throw new Error('Failed to fetch latest web development articles.');
   }
@@ -15,7 +12,6 @@ export async function fetchArticles(): Promise<Array<HackerNewsArticle>> {
   // Parse the JSON response into an array.
   const data = await response.json();
 
-  // Get the top 5 article IDs.
   const top5ArticleIds = data.slice(0, 5);
 
   const articles = await Promise.all(
@@ -27,17 +23,4 @@ export async function fetchArticles(): Promise<Array<HackerNewsArticle>> {
   );
 
   return articles;
-}
-
-// Interface for a Hacker News article.
-interface HackerNewsArticle {
-  by: string;
-  descendants: number;
-  id: number;
-  kids: number[];
-  score: number;
-  time: number;
-  title: string;
-  type: string;
-  url: string;
 }
